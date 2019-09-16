@@ -51,6 +51,7 @@ second_ranks = []
 # this basically just checks to see if the model acts as we expect
 # that is, documents should be very closely related to themselves
 # if they're not, something went terribly wrong
+# TODO: check which ones are populating the second_ranks array (look at which documents aren't ranking 'sanely')
 for doc_id in range(len(train_corpus)):
 
     # infer a vector from something that we already know about
