@@ -85,4 +85,4 @@ print('Train Document ({}): <<{}>>\n'.format(doc_id, ' '.join(train_corpus[doc_i
 sim_id, sim_dist = second_ranks[doc_id]  # the second most similar doc
 print('Similar Document ({}, {}): <<{}>>\n'.format(sim_id, sim_dist, ' '.join(train_corpus[sim_id].words)))
 
-model.save("new_model.d2v")
+model.save("doc2vec/new_model.model")
