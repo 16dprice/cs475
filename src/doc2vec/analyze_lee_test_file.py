@@ -27,6 +27,7 @@ def read_corpus(fname, tokens_only=False):
 train_corpus = list(read_corpus(lee_train_file))
 test_corpus = list(read_corpus(lee_test_file, tokens_only=True))
 
-for line in train_corpus:
-    print line
+for doc in train_corpus:
+    print(' '.join(doc.words))
+    print("\n")
 

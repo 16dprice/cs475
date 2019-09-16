@@ -41,7 +41,7 @@ model.build_vocab(train_corpus)
 model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
 
 # a neat example of inferring a paragraph vector
-# print model.infer_vector(['only', 'you', 'can', 'prevent', 'forest', 'fires'])
+# print(model.infer_vector(['only', 'you', 'can', 'prevent', 'forest', 'fires']))
 
 # assess the model
 ranks = []
@@ -75,7 +75,7 @@ for doc_id in range(len(train_corpus)):
 
 # an easy way to see if the model is 'sane'
 # should expect a large number of 0's to be present in ranks
-# print collections.Counter(ranks)
+# print(collections.Counter(ranks))
 
 # pick a random document from the corpus and infer a vector from the model
 doc_id = random.randint(0, len(train_corpus) - 1)

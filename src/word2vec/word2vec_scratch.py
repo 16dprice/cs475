@@ -7,4 +7,4 @@ path = get_tmpfile("word2vec.model")
 model = Word2Vec(common_texts, size=100, window=5, min_count=1, workers=4)
 model.save("word2vec.model")
 
-print common_texts
+print(common_texts)
