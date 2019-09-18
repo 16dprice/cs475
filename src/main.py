@@ -1,4 +1,4 @@
-
+from html_parsing.html_parser import Cool_Stuff_Inc_Article_Parser
 
 url1 = "https://www.coolstuffinc.com/a/jimdavis-09162019-sending-the-cats-to-the-astrolabe"
 url2 = "https://www.coolstuffinc.com/a/jimdavis-09132019-force-of-negation-is-the-most-important-card-in-modern"
