@@ -4,8 +4,10 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import string
 import lxml
+import gensim
 
-class Cool_Stuff_Inc_Article_Parser:
+
+class CoolStuffIncArticleParser:
 
     def __init__(self, url):
         self.url = url
