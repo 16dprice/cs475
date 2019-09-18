@@ -1,6 +1,6 @@
-import nltk
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup as soup
+import lxml
 
 
 url = "https://www.coolstuffinc.com/a/jimdavis-09162019-sending-the-cats-to-the-astrolabe"
@@ -9,7 +9,7 @@ url2 = "https://www.coolstuffinc.com/a/jimdavis-09132019-force-of-negation-is-th
 req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urlopen(req).read()
 
-page_soup = soup(webpage, "html.parser")
+page_soup = soup(webpage, "lxml")
 
 content = page_soup.find_all("section", class_="gm-article-content")
 
@@ -24,9 +24,10 @@ print(clean_text)
 req = Request(url2, headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urlopen(req).read()
 
-page_soup = soup(webpage, "html.parser")
+page_soup = soup(webpage, "lxml")
 
-content = page_soup.find_all("section", class_="gm-article-content")
+content = page_soup.find_all(class_="gm-article-content")
+
 
 if len(content) == 1:
     print(content[0].encode_contents())
