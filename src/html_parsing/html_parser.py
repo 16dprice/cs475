@@ -46,3 +46,9 @@ class Cool_Stuff_Inc_Article_Parser:
         tokenized_text = [w for w in tokenized_text if w not in stop_words]
 
         return tokenized_text
+
+    def get_tagged_document(self, index=None):
+        if index is None:
+            return gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(self.get_clean_text()), [0])
+        return gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(self.get_clean_text()), [index])
+
