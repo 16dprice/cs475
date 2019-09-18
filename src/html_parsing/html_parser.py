@@ -1,37 +1,48 @@
 from urllib.request import Request, urlopen
-from bs4 import BeautifulSoup as soup
+from bs4 import BeautifulSoup
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
 import lxml
 
+class Cool_Stuff_Inc_Article_Parser:
 
-url = "https://www.coolstuffinc.com/a/jimdavis-09162019-sending-the-cats-to-the-astrolabe"
-url2 = "https://www.coolstuffinc.com/a/jimdavis-09132019-force-of-negation-is-the-most-important-card-in-modern"
+    def __init__(self, url):
+        self.url = url
 
-req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-webpage = urlopen(req).read()
+    def get_clean_text(self):
+        # read the webpage via a request
+        # User-Agent is needed so we don't get a 403 error
+        req = Request(self.url, headers={'User-Agent': 'Mozilla/5.0'})
+        webpage = urlopen(req).read()
 
-page_soup = soup(webpage, "lxml")
+        # parse the page with lxml because other parsers don't seem to work as well
+        page_soup = BeautifulSoup(webpage, "lxml")
 
-content = page_soup.find_all("section", class_="gm-article-content")
+        # select specifically by an element and class name because that's where article
+        # information is stored on the cool stuff inc pages
+        content = page_soup.find_all("section", class_="gm-article-content")
 
-if len(content) == 1:
-    print(content[0].encode_contents())
+        clean_text = ' '.join(BeautifulSoup(content[0].encode_contents(), "lxml").stripped_strings)
 
-clean_text = ' '.join(soup(content[0].encode_contents(), "html.parser").stripped_strings)
-print(clean_text)
+        return clean_text
 
-# ----------------------------------------------------------------------------------------------------------------------
+    def get_tokenized_text(self):
+        # tokenize
+        tokenized_text = word_tokenize(self.get_clean_text())
 
-req = Request(url2, headers={'User-Agent': 'Mozilla/5.0'})
-webpage = urlopen(req).read()
+        # make everything lower case
+        tokenized_text = [w.lower() for w in tokenized_text]
 
-page_soup = soup(webpage, "lxml")
+        # remove punctuations
+        table = str.maketrans('', '', string.punctuation)
+        tokenized_text = [w.translate(table) for w in tokenized_text]
 
-content = page_soup.find_all(class_="gm-article-content")
+        # filter out non-alphanumeric characters
+        tokenized_text = [w for w in tokenized_text if w.isalpha()]
 
+        # filter out stop words ('i', 'me', etc)
+        stop_words = set(stopwords.words('english'))
+        tokenized_text = [w for w in tokenized_text if w not in stop_words]
 
-if len(content) == 1:
-    print(content[0].encode_contents())
-
-clean_text2 = ' '.join(soup(content[0].encode_contents(), "html.parser").stripped_strings)
-print(clean_text2)
-
+        return tokenized_text
