@@ -53,4 +53,3 @@ class CoolStuffIncArticleParser:
         if index is None:
             return gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(self.get_clean_text()), [0])
         return gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(self.get_clean_text()), [index])
-
