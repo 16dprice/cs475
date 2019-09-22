@@ -1,7 +1,5 @@
 from html_parsing.cool_stuff_inc_article_parser import CoolStuffIncArticleParser
 import gensim
-import collections
-import random
 
 urls = [
     # Jim Davis
@@ -70,57 +68,5 @@ model.build_vocab(train_corpus)
 
 model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
 
-# test_url = "https://www.coolstuffinc.com/a/jimdavis-06112019-starting-with-an-idea-modern-four-color-saheeli-combo"
-# parser = CoolStuffIncArticleParser(test_url)
-#
-# inferred_vector = model.infer_vector(parser.get_tagged_document(20).words)
-#
-# sims = model.docvecs.most_similar([inferred_vector], topn=len(model.docvecs))
-#
-# print(sims)
-
-# assess the model
-ranks = []
-second_ranks = []
-
-# this is more of a 'sanity check' rather than a real accuracy test
-# this basically just checks to see if the model acts as we expect
-# that is, documents should be very closely related to themselves
-# if they're not, something went terribly wrong
-# TODO: check which ones are populating the second_ranks array (look at which documents aren't ranking 'sanely')
-for doc_id in range(len(train_corpus)):
-
-    # infer a vector from something that we already know about
-    # if the model is good, this should be extremely closely related to itself in the model
-    inferred_vector = model.infer_vector(train_corpus[doc_id].words)
-
-    # returns a list of form [(int, float), ... ] where the int is the doc_id and
-    # the float is cosine similarity
-    sims = model.docvecs.most_similar([inferred_vector], topn=len(model.docvecs))
-
-    # the smaller the index of the doc_id, the better the model is
-    # so, a rank of 0 is very good
-    # this would mean that the model predicted the document itself as the closest document
-    rank = [docid for docid, sim in sims].index(doc_id)
-
-    # if this is a list of 0's, the model has done very well
-    ranks.append(rank)
-
-    # the second closest document
-    second_ranks.append(sims[1])
-
-# an easy way to see if the model is 'sane'
-# should expect a large number of 0's to be present in ranks
-print(collections.Counter(ranks))
-
-# pick a random document from the corpus and infer a vector from the model
-doc_id = random.randint(0, len(train_corpus) - 1)
-
-# sometimes this is pretty bad because a document can be 'isolated'
-# that is, the model may be trained well, but there does not exist a document very related to the chosen document at all
-print('Train Document ({}): <<{}>>\n'.format(doc_id, ' '.join(train_corpus[doc_id].words)))
-sim_id, sim_dist = second_ranks[doc_id]  # the second most similar doc
-print('Similar Document ({}, {}): <<{}>>\n'.format(sim_id, sim_dist, ' '.join(train_corpus[sim_id].words)))
-
-model.save("./new_mtg_model.model")
+model.save("./src/html_parsing/new_mtg_model.model")
 
