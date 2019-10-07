@@ -1,5 +1,7 @@
 from html_parsing.cool_stuff_inc_article_parser import CoolStuffIncArticleParser
+from html_parsing.espn_news_wire_parser import EspnNewsWireParser
 import gensim
+
 
 class ParsingAggregator:
 
@@ -58,6 +60,32 @@ class ParsingAggregator:
     "https://www.coolstuffinc.com/a/aliaintrazi-08092019-standard-temur-elementals",
     "https://www.coolstuffinc.com/a/aliaintrazi-08072019-battle-of-one-orzhov-aristocrats"
 ]
+        self.espn_news_wire_urls = [
+            # source page : http://www.espn.com/espn/wire/_/sportId/wire?sportId=10
+            # MLB (baseball)
+            "http://www.espn.com/espn/wire?section=mlb&id=27789479",
+            "http://www.espn.com/espn/wire?section=mlb&id=27788752",
+            "http://www.espn.com/espn/wire?section=mlb&id=27789171",
+            "http://www.espn.com/espn/wire?section=mlb&id=27789163",
+            "http://www.espn.com/espn/wire?section=mlb&id=27788560",
+            # NFL (football)
+            "http://www.espn.com/espn/wire?section=nfl&id=27790463",
+            "http://www.espn.com/espn/wire?section=nfl&id=27789599",
+            "http://www.espn.com/espn/wire?section=nfl&id=27789527",
+            "http://www.espn.com/espn/wire?section=nfl&id=27789066",
+            "http://www.espn.com/espn/wire?section=nfl&id=27788730",
+            # NBA (basketball)
+            "http://www.espn.com/espn/wire?section=nba&id=27788802",
+            "http://www.espn.com/espn/wire?section=nba&id=27780769",
+            "http://www.espn.com/espn/wire?section=nba&id=27777276",
+            "http://www.espn.com/espn/wire?section=nba&id=27773865",
+            # NHL (hockey)
+            "http://www.espn.com/espn/wire?section=nhl&id=27788185",
+            "http://www.espn.com/espn/wire?section=nhl&id=27788143",
+            "http://www.espn.com/espn/wire?section=nhl&id=27777308",
+            "http://www.espn.com/espn/wire?section=nhl&id=27787241",
+            "http://www.espn.com/espn/wire?section=nhl&id=27781749"
+        ]
         self.model = None
 
     def get_cool_stuff_inc_train_corpus(self):
@@ -68,11 +96,23 @@ class ParsingAggregator:
 
         return train_corpus
 
+    def get_espn_news_wire_train_corpus(self):
+        train_corpus = []
+        for index, url in enumerate(self.espn_news_wire_urls):
+            parser = EspnNewsWireParser(url)
+            train_corpus.append(parser.get_tagged_document(index))
+
+        return train_corpus
+
     def train_doc2vec_model(self):
 
         train_corpus = []
 
         train_corpus = train_corpus + self.get_cool_stuff_inc_train_corpus()
+        train_corpus = train_corpus + self.get_espn_news_wire_train_corpus()
+
+        # TODO re-index the train corpus to make sure the documents are sequential
+        # how best to do this?
 
         # because of the relatively small number of training examples, the number of epochs is relatively high
         # the vocab is a bunch of information about words in the document
