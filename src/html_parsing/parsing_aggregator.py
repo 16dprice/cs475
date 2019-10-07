@@ -88,19 +88,25 @@ class ParsingAggregator:
         ]
         self.model = None
 
+        self.document_index = 0
+
     def get_cool_stuff_inc_train_corpus(self):
         train_corpus = []
-        for index, url in enumerate(self.cool_stuff_inc_urls):
+        for url in self.cool_stuff_inc_urls:
             parser = CoolStuffIncArticleParser(url)
-            train_corpus.append(parser.get_tagged_document(index))
+            train_corpus.append(parser.get_tagged_document(self.document_index))
+
+            self.document_index += 1
 
         return train_corpus
 
     def get_espn_news_wire_train_corpus(self):
         train_corpus = []
-        for index, url in enumerate(self.espn_news_wire_urls):
+        for url in self.espn_news_wire_urls:
             parser = EspnNewsWireParser(url)
-            train_corpus.append(parser.get_tagged_document(index))
+            train_corpus.append(parser.get_tagged_document(self.document_index))
+
+            self.document_index += 1
 
         return train_corpus
 
@@ -110,9 +116,6 @@ class ParsingAggregator:
 
         train_corpus = train_corpus + self.get_cool_stuff_inc_train_corpus()
         train_corpus = train_corpus + self.get_espn_news_wire_train_corpus()
-
-        # TODO re-index the train corpus to make sure the documents are sequential
-        # how best to do this?
 
         # because of the relatively small number of training examples, the number of epochs is relatively high
         # the vocab is a bunch of information about words in the document
