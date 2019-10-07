@@ -127,13 +127,17 @@ class ParsingAggregator:
         self.model = model
 
     def save_doc2vec_model(self, path):
-        self.model.save("new_mtg_model.model")
+        self.model.save("new_aggregate_model.model")
 
     def save_train_corpus(self, path):
 
-        file = open(path + "/mtg_train_corpus.txt", "w")
+        file = open(path + "/aggregate_train_corpus.txt", "w")
 
         for doc in self.get_cool_stuff_inc_train_corpus():
+            file.write(' '.join(doc.words))
+            file.write('\n')
+
+        for doc in self.get_espn_news_wire_train_corpus():
             file.write(' '.join(doc.words))
             file.write('\n')
 
