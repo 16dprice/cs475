@@ -1,15 +1,15 @@
-import sys
 import os
-import time
-sys.path.append(os.getcwd() + "/src/")
 
-from html_parsing.parsing_aggregator import ParsingAggregator
+early_exaggeration = 12.0
+random_state = 2
 
-start = time.time()
+delta_exagg = 2.0
+delta_rs = 1
 
-parsing_aggregator = ParsingAggregator()
-parsing_aggregator.save_train_corpus("./src/html_parsing")
-
-end = time.time()
-
-print(end - start)
+while early_exaggeration <= 50.0:
+    while random_state <= 10:
+        os.system("./generate_tsne_representations.py {} {}".format(early_exaggeration, random_state))
+        print("Done with ee {} rs {}".format(early_exaggeration, random_state))
+        random_state += delta_rs
+    random_state = 2
+    early_exaggeration += delta_exagg
