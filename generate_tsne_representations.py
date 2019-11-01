@@ -17,7 +17,9 @@ import time
 import sys
 
 early_exaggeration = float(sys.argv[1])  # default: 12.0
-random_state = int(sys.argv[2])  # default: None
+
+doc_vector_size = int(sys.argv[2])
+num_epochs = int(sys.argv[3])
 
 train_file = os.getcwd() + '/src/aggregate_train_corpus.txt'
 
@@ -37,10 +39,25 @@ def read_corpus(fname, tokens_only=False):
 
 
 train_corpus = list(read_corpus(train_file))
-model = gensim.models.doc2vec.Doc2Vec.load("./src/aggregate_model.model")
+
+model_path = "./src/doc2vec_models/vs_{}_epochs_{}".format(doc_vector_size, num_epochs)
+model_name = model_path + "/aggregate_model.model"
+
+if not os.path.exists(model_path):
+    os.mkdir(model_path)
+
+if os.path.exists(model_name):
+    model = gensim.models.doc2vec.Doc2Vec.load(model_name)
+else:
+    model = gensim.models.doc2vec.Doc2Vec(vector_size=doc_vector_size, min_count=2, epochs=num_epochs)
+    model.build_vocab(train_corpus)
+
+    model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
+
+    model.save(model_name)
 
 doc_vectors = np.array(model.docvecs.vectors_docs)
-embedded_doc_vectors = TSNE(n_components=2, early_exaggeration=early_exaggeration, random_state=random_state).fit_transform(doc_vectors)
+embedded_doc_vectors = TSNE(n_components=2, early_exaggeration=early_exaggeration, random_state=1).fit_transform(doc_vectors)
 
 # init the list so there's not a lot of appending when adding the labels
 # the label is hardcoded
@@ -68,16 +85,15 @@ maxX = max(embedded_doc_vectors[0:, 0])
 minY = min(embedded_doc_vectors[0:, 1])
 maxY = max(embedded_doc_vectors[0:, 1])
 
+x_offset = 0.1 * (maxX - minX)
+y_offset = 0.1 * (maxY - minY)
+
 # define axes and label each point
-plt.axis([minX - 10, maxX + 10, minY - 10, maxY + 10])
+plt.axis([minX - x_offset, maxX + x_offset, minY - y_offset, maxY + y_offset])
 for point, label, color in embedded_doc_vectors_with_words:
     plt.text(point[0], point[1], label, bbox=color)
 
-plt.title("Learning Exaggeration: {} -- Random State: {}".format(early_exaggeration, random_state))
-
-# sometimes the directory doesn't exist
-if not os.path.exists("./tsne_plot_outputs/sports_mtg_and_bharatanatyam/random_state_{}".format(random_state)):
-    os.mkdir("./tsne_plot_outputs/sports_mtg_and_bharatanatyam/random_state_{}".format(random_state))
+plt.title("Early Exaggeration: {} -- Vector Size: {} -- Epochs: {}".format(early_exaggeration, doc_vector_size, num_epochs))
 
 # file formats supported are png, pdf, and some mores. jpg and jpeg are not supported
-plt.savefig("./tsne_plot_outputs/sports_mtg_and_bharatanatyam/random_state_{}/ee_{}_rs_{}.png".format(random_state, early_exaggeration, random_state))
+plt.savefig(model_path + "/ee_{}.png".format(early_exaggeration))
