@@ -97,6 +97,7 @@ class ParsingAggregator:
             train_corpus.append(parser.get_tagged_document(self.document_index))
 
             self.document_index += 1
+            print("Done with document " + str(self.document_index))
 
         return train_corpus
 
@@ -107,6 +108,7 @@ class ParsingAggregator:
             train_corpus.append(parser.get_tagged_document(self.document_index))
 
             self.document_index += 1
+            print("Done with document " + str(self.document_index))
 
         return train_corpus
 
