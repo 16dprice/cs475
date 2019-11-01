@@ -10,3 +10,5 @@ src/doc2vec/new_model.model
 src/word2vec/word2vec.model
 
 *.model
+
+*.png
