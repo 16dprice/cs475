@@ -65,9 +65,6 @@ text_clf_svm = Pipeline([
 
 text_clf_svm = text_clf_svm.fit(twenty_train.data, twenty_train.target)
 
-print("Data: {}".format(len(twenty_train.data)))
-print("Targets: {}".format(len(twenty_train.target)))
-
 predicted_svm = text_clf_svm.predict(twenty_test.data)
 print(np.mean(predicted_svm == twenty_test.target))
 
