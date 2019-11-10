@@ -14,3 +14,5 @@ src/word2vec/word2vec.model
 *.png
 
 *.pdf
+
+*.pyc
