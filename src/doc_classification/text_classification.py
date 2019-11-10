@@ -16,19 +16,23 @@ with smart_open.open(train_file, encoding="UTF-8") as f:
     for i, line in enumerate(f):
         file_contents.append(line)
 
-# should be 35 mtg, 14 sports, 10 dance
-train_data = file_contents[:35] + file_contents[50:64] + file_contents[70:80]
-# 15 mtg, 6 sports, 4 dance
-test_data = file_contents[35:50] + file_contents[64:70] + file_contents[80:]
+
+######################################### Splitting Data (70% train, 30% test) #########################################
+
+
+# should be 35 mtg, 27 sports, 10 dance
+train_data = file_contents[:35] + file_contents[50:77] + file_contents[88:98]
+# 15 mtg, 11 sports, 4 dance
+test_data = file_contents[35:50] + file_contents[64:75] + file_contents[98:]
 
 train_targets = []
 for i in range(35): train_targets.append(0)
-for i in range(14): train_targets.append(1)
+for i in range(27): train_targets.append(1)
 for i in range(10): train_targets.append(2)
 
 test_targets = []
 for i in range(15): test_targets.append(0)
-for i in range(6 ): test_targets.append(1)
+for i in range(11): test_targets.append(1)
 for i in range(4 ): test_targets.append(2)
 
 count_vect = CountVectorizer()
@@ -49,6 +53,8 @@ text_clf_nb.fit(train_data, train_targets)
 
 predicted_nb = text_clf_nb.predict(test_data)
 print(np.mean(predicted_nb == test_targets))
+# originally I got 0.65 on this
+# after adding 20 more sports articles (5 of each type) this goes up to 0.866
 
 
 ############################################ SVM (Support Vector Machines) #############################################
@@ -64,3 +70,5 @@ text_clf_svm.fit(train_data, train_targets)
 
 predicted_svm = text_clf_svm.predict(test_data)
 print(np.mean(predicted_svm == test_targets))
+# originally I got 0.95 on this, which is fantastic
+# after adding 20 more sports articles (5 of each type) this goes up to 1.0, which is even more fantastic
