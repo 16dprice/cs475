@@ -62,29 +62,48 @@ class ParsingAggregator:
 ]
         self.espn_news_wire_urls = [
             # source page : http://www.espn.com/espn/wire/_/sportId/wire?sportId=10
-            # MLB (baseball)
+            # MLB (baseball) - 10
             "http://www.espn.com/espn/wire?section=mlb&id=27789479",
             "http://www.espn.com/espn/wire?section=mlb&id=27788752",
             "http://www.espn.com/espn/wire?section=mlb&id=27789171",
             "http://www.espn.com/espn/wire?section=mlb&id=27789163",
             "http://www.espn.com/espn/wire?section=mlb&id=27788560",
-            # NFL (football)
+            "http://www.espn.com/espn/wire?section=mlb&id=28046167",
+            "http://www.espn.com/espn/wire?section=mlb&id=28037971",
+            "http://www.espn.com/espn/wire?section=mlb&id=28030085",
+            "http://www.espn.com/espn/wire?section=mlb&id=28029691",
+            "http://www.espn.com/espn/wire?section=mlb&id=28029688",
+            # NFL (football) - 10
             "http://www.espn.com/espn/wire?section=nfl&id=27790463",
             "http://www.espn.com/espn/wire?section=nfl&id=27789599",
             "http://www.espn.com/espn/wire?section=nfl&id=27789527",
             "http://www.espn.com/espn/wire?section=nfl&id=27789066",
             "http://www.espn.com/espn/wire?section=nfl&id=27788730",
-            # NBA (basketball)
+            "http://www.espn.com/espn/wire?section=nfl&id=28048838",
+            "http://www.espn.com/espn/wire?section=nfl&id=28036049",
+            "http://www.espn.com/espn/wire?section=nfl&id=28044115",
+            "http://www.espn.com/espn/wire?section=nfl&id=28043524",
+            "http://www.espn.com/espn/wire?section=nfl&id=28043404",
+            # NBA (basketball) - 8
             "http://www.espn.com/espn/wire?section=nba&id=27788802",
             "http://www.espn.com/espn/wire?section=nba&id=27780769",
             "http://www.espn.com/espn/wire?section=nba&id=27777276",
             "http://www.espn.com/espn/wire?section=nba&id=27773865",
-            # NHL (hockey)
+            "http://www.espn.com/espn/wire?section=nba&id=28046151",
+            "http://www.espn.com/espn/wire?section=nba&id=28045768",
+            "http://www.espn.com/espn/wire?section=nba&id=28046151",
+            "http://www.espn.com/espn/wire?section=nba&id=28046097",
+            # NHL (hockey) - 10
             "http://www.espn.com/espn/wire?section=nhl&id=27788185",
             "http://www.espn.com/espn/wire?section=nhl&id=27788143",
             "http://www.espn.com/espn/wire?section=nhl&id=27777308",
             "http://www.espn.com/espn/wire?section=nhl&id=27787241",
-            "http://www.espn.com/espn/wire?section=nhl&id=27781749"
+            "http://www.espn.com/espn/wire?section=nhl&id=27781749",
+            "http://www.espn.com/espn/wire?section=nhl&id=28046730",
+            "http://www.espn.com/espn/wire?section=nhl&id=28046767",
+            "http://www.espn.com/espn/wire?section=nhl&id=28046052",
+            "http://www.espn.com/espn/wire?section=nhl&id=28046028",
+            "http://www.espn.com/espn/wire?section=nhl&id=28045301",
         ]
         self.model = None
 
