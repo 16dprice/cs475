@@ -21,6 +21,8 @@ early_exaggeration = float(sys.argv[1])  # default: 12.0
 doc_vector_size = int(sys.argv[2])
 num_epochs = int(sys.argv[3])
 
+date_made = str(sys.argv[4])
+
 train_file = os.getcwd() + '/src/aggregate_train_corpus.txt'
 
 # yield produces a value that can only be iterated over once
@@ -40,7 +42,7 @@ def read_corpus(fname, tokens_only=False):
 
 train_corpus = list(read_corpus(train_file))
 
-model_path = "./src/doc2vec_models/vs_{}_epochs_{}".format(doc_vector_size, num_epochs)
+model_path = "./src/doc2vec_models/{}/vs_{}_epochs_{}".format(date_made, doc_vector_size, num_epochs)
 model_name = model_path + "/aggregate_model.model"
 
 if not os.path.exists(model_path):
@@ -69,7 +71,7 @@ for doc_id in range(len(doc_vectors)):
     if doc_id <= 49:
         label = "m"
         color = dict(facecolor='blue', alpha=0.5)
-    elif 50 <= doc_id <= 68:
+    elif 50 <= doc_id < 88:
         label = "s"
         color = dict(facecolor='red', alpha=0.5)
     else:

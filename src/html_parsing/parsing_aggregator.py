@@ -150,17 +150,29 @@ class ParsingAggregator:
     def save_doc2vec_model(self, path):
         self.model.save("new_aggregate_model.model")
 
+    # write the articles to an aggregate corpus as well as separate corpora (helps with classification later)
     def save_train_corpus(self, path):
 
         file = open(path + "/aggregate_train_corpus.txt", "w")
+
+        mtg_articles_file = open(path + "/mtg_articles.txt", "w")
+        sports_articles_file = open(path + "/sports_articles.txt", "w")
 
         for doc in self.get_cool_stuff_inc_train_corpus():
             file.write(' '.join(doc.words))
             file.write('\n')
 
+            mtg_articles_file.write(' '.join(doc.words))
+            mtg_articles_file.write('\n')
+
         for doc in self.get_espn_news_wire_train_corpus():
             file.write(' '.join(doc.words))
             file.write('\n')
 
+            sports_articles_file.write(' '.join(doc.words))
+            sports_articles_file.write('\n')
+
         file.close()
+        mtg_articles_file.close()
+        sports_articles_file.close()
 
