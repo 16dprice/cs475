@@ -1,9 +1,9 @@
 import os
 import time as t
 
-early_exaggeration = 12.0
-doc_vector_size = 20
-epochs = 40
+early_exaggeration = 16.0
+doc_vector_size = 10
+epochs = 10
 
 delta_exagg = 4.0
 delta_vs = 5
@@ -24,3 +24,5 @@ while early_exaggeration <= 32.0:
 
     epochs = 10
     early_exaggeration += delta_exagg
+
+# os.system("./generate_tsne_with_autolabels.py {} {} {} {}".format(early_exaggeration, doc_vector_size, epochs, "nov15_19"))

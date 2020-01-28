@@ -23,9 +23,9 @@ from doc_classification import svm_classifier as svm_clf
 # num_epochs = int(sys.argv[3])
 #
 # date_made = str(sys.argv[4])
-early_exaggeration = 16.0
+early_exaggeration = 30.0
 doc_vector_size = 30
-num_epochs = 20
+num_epochs = 30
 date_made = "nov15_19"
 
 train_file = os.getcwd() + '/src/aggregate_train_corpus.txt'

@@ -60,3 +60,16 @@ class SVMClassifier:
         if self.text_clf_svm is None: return -1
         return np.mean(self.text_clf_svm.predict(self.test_data) == self.test_targets)
 
+    def predict(self, text):
+        if self.text_clf_svm is None: return -1
+        return self.text_clf_svm.predict([text])[0]
+
+# svm_classifier = SVMClassifier(os.getcwd())
+# svm_classifier.train([
+#     '/../mtg_articles.txt',
+#     '/../sports_articles.txt',
+#     '/../bharatanatyam_pdfs.txt'
+# ])
+#
+# print(svm_classifier.accuracy())
+# print(svm_classifier.predict('welcome back everyone todays best of three videos will be temur elementals it not your traditional list though we are also playing flood of tears and omniscience for combo finish in case the game goes long or you just turbo ramp with your risen reefs if you like elementals or just want to play another flood of tears deck you should check this one out time stamps match match match match match match temur elementals core set standard ali aintrazi creatures cavalier of thorns hydroid krasis leafkin druid llanowar elves omnath locus of the roil risen reef planeswalkers tamiyo collector of tales instants growth spiral sorceries lava coil flood of tears enchantments omniscience lands forest rootbound crag steam vents temple of mystery breeding pool hinterland harbor stomping ground sideboard aether gust lava coil cindervines flame sweep shifting ceratops chandra awakened inferno buy this deck export text format export arena format again you re essentially temur elementals deck with combo finish the combo being omniscience in play flood of tears in hand or in your graveyard and having tamiyo collector of tales this will allow you to cast flood of tears putting omniscience into play then playing tamiyo and regrowing flood of tears then play whatever else you have in your hand and rinse and repeat you ll have infinite draw with risen reef and infinite damage with omnath locus of the roil when you bring in chandra awakened inferno you are also able to make infinite chandra emblems we do all this couple of times in the video if you are confused about how it works or want to see it in action that it for today hope you have wonderful week and if you play any of these decks and you enjoy them tweet at me love hearing about people enjoying my decks at fnm or wherever you may take them as always thanks for reading ali aintrazi follow me alieldrazi twitch channel think twice mtg podcast'))
