@@ -24,21 +24,21 @@ def read_corpus(fname, tokens_only=False):
 class ProjectCorpus:
 
     def __init__(self):
-        self.mtg_articles_path = "data/mtg_articles.txt"
-        self.sports_articles_path = "data/sports_articles.txt"
-        self.dance_articles_path = "data/bharatanatyam_pdfs.txt"
-        self.aggregate_corpus_path = "data/aggregate_train_corpus.txt"
+        self.mtg_articles_path = "/home/dj/PycharmProjects/cs475/src/data/mtg_articles.txt"
+        self.sports_articles_path = "/home/dj/PycharmProjects/cs475/src/data/sports_articles.txt"
+        self.dance_articles_path = "/home/dj/PycharmProjects/cs475/src/data/bharatanatyam_pdfs.txt"
+        self.aggregate_corpus_path = "/home/dj/PycharmProjects/cs475/src/data/aggregate_train_corpus.txt"
 
-    def get_mtg_corpus(self): read_corpus(self.mtg_articles_path)
-    def get_sports_corpus(self): read_corpus(self.sports_articles_path)
-    def get_dance_corpus(self): read_corpus(self.dance_articles_path)
-    def get_aggregate_corpus(self): read_corpus(self.aggregate_corpus_path)
-
-    @staticmethod
-    def get_mtg_data_indices(): DataIndices(0, 50)
+    def get_mtg_corpus(self): return read_corpus(self.mtg_articles_path)
+    def get_sports_corpus(self): return read_corpus(self.sports_articles_path)
+    def get_dance_corpus(self): return read_corpus(self.dance_articles_path)
+    def get_aggregate_corpus(self): return read_corpus(self.aggregate_corpus_path)
 
     @staticmethod
-    def get_sports_data_indices(): DataIndices(50, 88)
+    def get_mtg_data_indices(): return DataIndices(0, 50)
 
     @staticmethod
-    def get_dance_data_indices(): DataIndices(88, 103)
+    def get_sports_data_indices(): return DataIndices(50, 88)
+
+    @staticmethod
+    def get_dance_data_indices(): return DataIndices(88, 103)
