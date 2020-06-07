@@ -1,2 +1,0 @@
-- calculate convex and concave hulls for highly dimensional data
-  - put this into an object of some sort and add the monte carlo stuff too
