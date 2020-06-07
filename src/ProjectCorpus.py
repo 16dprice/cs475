@@ -1,6 +1,11 @@
 import gensim
 import smart_open
 
+# DataIndices gives the starting and ending index for data in a file
+# It is non-inclusive (to make it work better with range function)
+from collections import namedtuple
+DataIndices = namedtuple("DataIndices", "start end")
+
 # yield produces a value that can only be iterated over once
 # that is, it's not stored in memory and is deallocated once it's iterated over
 # so yielding, instead of returning, speeds things up
@@ -24,17 +29,16 @@ class ProjectCorpus:
         self.dance_articles_path = "data/bharatanatyam_pdfs.txt"
         self.aggregate_corpus_path = "data/aggregate_train_corpus.txt"
 
-    def get_mtg_corpus(self):
-        return read_corpus(self.mtg_articles_path)
+    def get_mtg_corpus(self): read_corpus(self.mtg_articles_path)
+    def get_sports_corpus(self): read_corpus(self.sports_articles_path)
+    def get_dance_corpus(self): read_corpus(self.dance_articles_path)
+    def get_aggregate_corpus(self): read_corpus(self.aggregate_corpus_path)
 
-    def get_sports_corpus(self):
-        return read_corpus(self.sports_articles_path)
+    @staticmethod
+    def get_mtg_data_indices(): DataIndices(0, 50)
 
-    def get_dance_corpus(self):
-        return read_corpus(self.dance_articles_path)
+    @staticmethod
+    def get_sports_data_indices(): DataIndices(50, 88)
 
-    def get_aggregate_corpus(self):
-        return read_corpus(self.aggregate_corpus_path)
-
-
-
+    @staticmethod
+    def get_dance_data_indices(): DataIndices(88, 103)
