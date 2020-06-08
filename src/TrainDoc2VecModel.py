@@ -12,7 +12,7 @@ class TrainDoc2VecModel:
 
         model.build_vocab(train_corpus)
         model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
-        model.save(save_path)
+        model.save(self.save_dir + save_path)
 
         return model
 
@@ -20,7 +20,7 @@ class TrainDoc2VecModel:
 
         corpus = ProjectCorpus()
         train_corpus = corpus.get_aggregate_corpus()
-        save_path = "{}/aggregate/vs_{}_epochs_{}.model".format(self.save_dir, vector_size, epochs)
+        save_path = "aggregate/vs_{}_epochs_{}.model".format(vector_size, epochs)
 
         model = self.get_model(train_corpus, save_path, vector_size, epochs)
 
@@ -30,7 +30,7 @@ class TrainDoc2VecModel:
 
         corpus = ProjectCorpus()
         train_corpus = corpus.get_mtg_corpus()
-        save_path = "{}/mtg/vs_{}_epochs_{}.model".format(self.save_dir, vector_size, epochs)
+        save_path = "mtg/vs_{}_epochs_{}.model".format(vector_size, epochs)
 
         model = self.get_model(train_corpus, save_path, vector_size, epochs)
 
@@ -40,7 +40,7 @@ class TrainDoc2VecModel:
 
         corpus = ProjectCorpus()
         train_corpus = corpus.get_sports_corpus()
-        save_path = "{}/sports/vs_{}_epochs_{}.model".format(self.save_dir, vector_size, epochs)
+        save_path = "sports/vs_{}_epochs_{}.model".format(vector_size, epochs)
 
         model = self.get_model(train_corpus, save_path, vector_size, epochs)
 
@@ -50,7 +50,7 @@ class TrainDoc2VecModel:
 
         corpus = ProjectCorpus()
         train_corpus = corpus.get_dance_corpus()
-        save_path = "{}/dance/vs_{}_epochs_{}.model".format(self.save_dir, vector_size, epochs)
+        save_path = "dance/vs_{}_epochs_{}.model".format(vector_size, epochs)
 
         model = self.get_model(train_corpus, save_path, vector_size, epochs)
 
