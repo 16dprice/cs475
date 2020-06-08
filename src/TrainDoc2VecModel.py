@@ -55,3 +55,13 @@ class TrainDoc2VecModel:
         model = self.get_model(train_corpus, save_path, vector_size, epochs)
 
         return model
+
+    def get_mtg_and_sports_model(self, vector_size, epochs):
+
+        corpus = ProjectCorpus()
+        train_corpus = corpus.get_mtg_and_sports_corpus()
+        save_path = "mtg_and_sports/vs_{}_epochs_{}.model".format(vector_size, epochs)
+
+        model = self.get_model(train_corpus, save_path, vector_size, epochs)
+
+        return model

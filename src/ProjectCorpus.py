@@ -28,11 +28,13 @@ class ProjectCorpus:
         self.sports_articles_path = "/home/dj/PycharmProjects/cs475/src/data/sports_articles.txt"
         self.dance_articles_path = "/home/dj/PycharmProjects/cs475/src/data/bharatanatyam_pdfs.txt"
         self.aggregate_corpus_path = "/home/dj/PycharmProjects/cs475/src/data/aggregate_train_corpus.txt"
+        self.mtg_and_sports_articles_path = "/home/dj/PycharmProjects/cs475/src/data/mtg_and_sports_articles.txt"
 
     def get_mtg_corpus(self): return read_corpus(self.mtg_articles_path)
     def get_sports_corpus(self): return read_corpus(self.sports_articles_path)
     def get_dance_corpus(self): return read_corpus(self.dance_articles_path)
     def get_aggregate_corpus(self): return read_corpus(self.aggregate_corpus_path)
+    def get_mtg_and_sports_corpus(self): return read_corpus(self.mtg_and_sports_articles_path)
 
     @staticmethod
     def get_mtg_data_indices(): return DataIndices(0, 50)
