@@ -1,3 +1,5 @@
+import os
+
 import gensim
 from src.ProjectCorpus import ProjectCorpus
 
@@ -8,11 +10,15 @@ class TrainDoc2VecModel:
 
     def get_model(self, train_corpus, save_path, vector_size, epochs):
 
+        model_path = self.save_dir + save_path
+
+        if os.path.exists(model_path): return gensim.models.doc2vec.Doc2Vec.load(model_path)
+
         model = gensim.models.doc2vec.Doc2Vec(vector_size=vector_size, min_count=2, epochs=epochs)
 
         model.build_vocab(train_corpus)
         model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
-        model.save(self.save_dir + save_path)
+        model.save(model_path)
 
         return model
 
