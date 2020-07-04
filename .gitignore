@@ -1,4 +1,7 @@
 
+src/data/20news-bydate-test/
+src/data/20news-bydate-train/
+
 .idea/
 
 venv/

@@ -71,3 +71,23 @@ class TrainDoc2VecModel:
         model = self.get_model(train_corpus, save_path, vector_size, epochs, train_new_model)
 
         return model
+
+    def get_20news_model(self, vector_size, epochs, train_new_model=False):
+
+        corpus = ProjectCorpus()
+        train_corpus = corpus.get_news20_corpus()
+        save_path = "20news/models/vs_{}_epochs_{}.model".format(vector_size, epochs)
+
+        model = self.get_model(train_corpus, save_path, vector_size, epochs, train_new_model)
+
+        return model
+
+    def get_old_aggregate_model(self, vector_size, epochs, train_new_model=False):
+
+        corpus = ProjectCorpus()
+        train_corpus = corpus.get_old_aggregate_corpus()
+        save_path = "aggregate_old/models/vs_{}_epochs_{}.model".format(vector_size, epochs)
+
+        model = self.get_model(train_corpus, save_path, vector_size, epochs, train_new_model)
+
+        return model

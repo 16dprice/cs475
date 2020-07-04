@@ -1,24 +1,55 @@
 import gensim
-from sklearn.cluster import KMeans
 import numpy as np
-from collections import Counter
-import os
+from src.ProjectCorpus import ProjectCorpus
+import matplotlib.pyplot as plt
 
-for model_name in os.listdir("./src/doc2vec_models/summer_2020/aggregate/models"):
+vector_size = 3
+epochs = 20
 
-    model_path = "./src/doc2vec_models/summer_2020/aggregate/models/{}".format(model_name)
-    model = gensim.models.doc2vec.Doc2Vec.load(model_path)
-    X = np.array(model.docvecs.vectors_docs)
+corpus = ProjectCorpus()
+train_corpus = corpus.get_small_corpus()
+save_dir = "/home/dj/PycharmProjects/cs475/src/doc2vec_models/summer_2020"
+save_path = "{}/small_corpus/models/vs_{}_epochs_{}.model".format(save_dir, vector_size, epochs)
 
-    kmeans_fit_predict = KMeans(n_clusters=3, random_state=0).fit_predict(X)
+model = gensim.models.doc2vec.Doc2Vec(vector_size=vector_size, min_count=2, epochs=epochs)
 
-    class_counts = Counter(kmeans_fit_predict)
-    class_tallies = class_counts.values()
+model.build_vocab(train_corpus)
+model.train(train_corpus, total_examples=model.corpus_count, epochs=model.epochs)
+model.save(save_path)
 
-    if 50 in class_tallies and 38 in class_tallies and 14 in class_tallies:
-        print("Success. Model tested was {}".format(model_name))
+doc_vectors = np.array(model.docvecs.vectors_docs)
+
+embedded_doc_vectors_with_words = [None for _ in range(len(doc_vectors))]
+for doc_id in range(len(doc_vectors)):
+    if doc_id <= 9:
+        label = "m"
+        color = dict(facecolor='blue', alpha=0.5)
     else:
-        print(
-            "Error. {} in class 0. {} in class 1. {} in class 2. Model tested was {}"
-                .format(class_counts[0], class_counts[1], class_counts[2], model_name)
-        )
+        label = "s"
+        color = dict(facecolor='red', alpha=0.5)
+
+    embedded_doc_vectors_with_words[doc_id] = [
+        (doc_vectors[doc_id, 0], doc_vectors[doc_id, 1]), label, color
+    ]
+
+# find the bounds for the axes
+minX = min(doc_vectors[0:, 0])
+maxX = max(doc_vectors[0:, 0])
+
+minY = min(doc_vectors[0:, 1])
+maxY = max(doc_vectors[0:, 1])
+
+x_offset = 0.1 * (maxX - minX)
+y_offset = 0.1 * (maxY - minY)
+
+# define axes and label each point
+plt.axis([minX - x_offset, maxX + x_offset, minY - y_offset, maxY + y_offset])
+for point, label, color in embedded_doc_vectors_with_words:
+    plt.text(point[0], point[1], label, bbox=color)
+
+# file formats supported are png, pdf, and some mores. jpg and jpeg are not supported
+plt.savefig(
+    "/home/dj/PycharmProjects/cs475/src/doc2vec_models/summer_2020/small_corpus/plots/vs_{}_epochs_{}.png".format(
+        len(doc_vectors[0]), model.epochs)
+)
+plt.show()
