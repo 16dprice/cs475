@@ -31,7 +31,7 @@ num_epochs = 100
 
 date_made = "nov10_19"
 
-train_file = os.getcwd() + '/src/aggregate_train_corpus.txt'
+train_file = os.getcwd() + '/src/data/aggregate_train_corpus.txt'
 
 # yield produces a value that can only be iterated over once
 # that is, it's not stored in memory and is deallocated once it's iterated over
